@@ -1,4 +1,5 @@
-'''calculation.py: Represents a single calculation, providing abstraction for handling operations within the Calculator class.'''
+'''calculation.py: Represents a single calculation,
+providing abstraction for handling operations within the Calculator class.'''
 from decimal import Decimal
 from typing import Callable
 
