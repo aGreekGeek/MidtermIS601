@@ -1,4 +1,4 @@
-'''main.py: main program file provided for HW5'''
+'''main.py: main program file'''
 
 from app import App
 
