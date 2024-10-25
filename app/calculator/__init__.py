@@ -33,6 +33,6 @@ class Calculator:
         return Calculator._execute_operation(a, b, ops.multiplication)
 
     @staticmethod
-    def divide(a: Decimal, b: Decimal) -> Decimal:
+    def divide(a: Decimal, b: Decimal) -> Decimal: 
         '''Performs division by calling the execute operation method.'''
         return Calculator._execute_operation(a, b, ops.division)

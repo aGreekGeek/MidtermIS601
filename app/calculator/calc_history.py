@@ -1,4 +1,5 @@
-'''calc_history.py: Responsible for handling calculation history, providing methods for adding, retrieving, and clearing records.'''
+'''calc_history.py: Responsible for handling calculation history, providing methods for adding,
+retrieving, and clearing records.'''
 from typing import List
 from app.calculator.calculation import Calculation
 
