@@ -76,7 +76,7 @@ class App:
         '''Initialize and run the application.'''
         self.load_plugins()
         logging.info("Application has started.")
-        print("Welcome to the basic calculator.\n\tEnter 'menu' for a list of commands or 'exit' to close the app.")
+        print("Welcome to Steve's Advanced Calculator Midterm Project.\n\tEnter 'menu' for a list of commands or 'exit' to close the app.")
         try:
             while True:  # REPL (Read, Evaluate, Print, Loop)
                 user_input = input(">>> ").strip()
