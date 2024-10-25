@@ -7,7 +7,6 @@ from app.plugins.menu import MenuCommand
 from dotenv import load_dotenv
 import logging
 import logging.config
-from app.plugins.history import HistoryMenuCommand
 
 class App:
     '''Primary class for the application.'''
@@ -21,16 +20,25 @@ class App:
         self.command_handler = CommandHandler()
 
     def setup_logging(self):
-        log_level = os.getenv('LOS_LEVEL', 'INFO').upper()
+        # Determine log level from environment variables (default to INFO)
+        log_level = os.getenv('LOG_LEVEL', 'INFO').upper()
+        log_file = os.getenv('LOG_FILE', 'logs/application.log')
+
+        # Check if a logging configuration file exists
         log_config = 'logging.conf'
         if os.path.isfile(log_config):
             logging.config.fileConfig(log_config, disable_existing_loggers=False)
         else:
+            # Basic logging configuration
             logging.basicConfig(
-                pevep=getattr(logging, log_level, logging.INFO),
-                format='%(asctime)s - %(levelname)s - %(message)s'
+                level=getattr(logging, log_level, logging.INFO),
+                format='%(asctime)s - %(levelname)s - %(message)s',
+                handlers=[
+                    logging.FileHandler(log_file),
+                    logging.StreamHandler()  # Output logs to console as well
+                ]
             )
-        logging.info("Logging setup complete")
+        logging.info("Logging setup complete.")
 
     def fetch_environment_variables(self):
         env_settings = {key: value for key, value in os.environ.items()}
