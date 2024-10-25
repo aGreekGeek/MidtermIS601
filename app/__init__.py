@@ -9,6 +9,7 @@ from app.plugins.menu import MenuCommand
 from dotenv import load_dotenv
 import logging
 import logging.config
+from app.plugins.history import HistoryMenuCommand
 
 class App:
     '''Primary class for the application.'''
@@ -39,6 +40,8 @@ class App:
 
     def load_plugins(self):
         '''Load plugins dynamically from app.plugins directory.'''
+        # Register primary history menu command
+        self.command_handler.register_command('history', HistoryMenuCommand())
         plugin_directory = 'app.plugins'
         plugin_path = plugin_directory.replace('.', '/')
         if not os.path.isdir(plugin_path):
