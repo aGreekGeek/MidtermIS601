@@ -1,6 +1,8 @@
 from app.commands import Command
 from app.calculator import Calculator
 from app.utils.validation import validate_decimal_input
+from app.commands import CommandHandler
+from app.plugins.add import AddCommand
 
 class DivideCommand(Command):
     '''Command class responsible for performing division operation.'''
@@ -21,3 +23,8 @@ class DivideCommand(Command):
         except ValueError:
             print("Cannot divide by zero.")
             return "Cannot divide by zero."
+
+
+def register_commands(handler: CommandHandler):
+    '''Registers AddCommand with the command handler.'''
+    handler.register_command('subtract', DivideCommand())

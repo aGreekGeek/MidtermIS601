@@ -1,5 +1,7 @@
 from app.commands import Command
 from app.calculator.calc_history import CalculationHistory as history
+from app.commands import CommandHandler
+from app.plugins.add import AddCommand
 
 class HistoryMenuCommand(Command):
     '''Handles history-related submenu options in the REPL.'''
@@ -55,3 +57,8 @@ class HistoryMenuCommand(Command):
                 print("Record deleted.")
         except ValueError:
             print("Please enter a valid number.")
+
+
+def register_commands(handler: CommandHandler):
+    '''Registers AddCommand with the command handler.'''
+    handler.register_command('history', HistoryMenuCommand())

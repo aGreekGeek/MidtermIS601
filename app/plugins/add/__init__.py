@@ -1,7 +1,7 @@
-'''app/plugins/add/__init__.py'''
-from app.commands import Command
+from app.commands import CommandHandler
 from app.calculator import Calculator
 from app.utils.validation import validate_decimal_input
+from app.commands import Command
 
 class AddCommand(Command):
     '''A command class to perform addition.'''
@@ -16,4 +16,8 @@ class AddCommand(Command):
         num2 = validate_decimal_input("Enter the second number: ")
         result = Calculator.add(num1, num2)
         print(f"The result of {num1} + {num2} is: {result}")
-        return result # for test_add_command.py
+        return result
+
+def register_commands(handler: CommandHandler):
+    '''Registers AddCommand with the command handler.'''
+    handler.register_command('add', AddCommand())

@@ -1,6 +1,8 @@
 from app.commands import Command
 from app.calculator import Calculator
 from app.utils.validation import validate_decimal_input
+from app.commands import CommandHandler
+from app.plugins.add import AddCommand
 
 class MultiplyCommand(Command):
     '''Command class for handling multiplication operations.'''
@@ -17,3 +19,7 @@ class MultiplyCommand(Command):
         result = Calculator.multiply(num1, num2)
         print(f"The product of {num1} and {num2} is: {result}")
         return result
+
+def register_commands(handler: CommandHandler):
+    '''Registers AddCommand with the command handler.'''
+    handler.register_command('multiply', MultiplyCommand())

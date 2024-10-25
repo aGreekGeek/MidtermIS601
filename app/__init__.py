@@ -1,10 +1,8 @@
-'''app/__init__.py: Handles the application’s core flow.'''
 import os
 import pkgutil
 import importlib
 import sys
-from typing import Type
-from app.commands import CommandHandler, Command
+from app.commands import CommandHandler
 from app.plugins.menu import MenuCommand
 from dotenv import load_dotenv
 import logging
@@ -39,38 +37,26 @@ class App:
         return self.settings.get(env_var, default_value)
 
     def load_plugins(self):
-        '''Load plugins dynamically from app.plugins directory.'''
-        # Register primary history menu command
-        self.command_handler.register_command('history', HistoryMenuCommand())
+        '''
+        Dynamically load all plugins from the app.plugins directory.
+        '''
         plugin_directory = 'app.plugins'
         plugin_path = plugin_directory.replace('.', '/')
-        if not os.path.isdir(plugin_path):
-            logging.warning(f"Plugin directory '{plugin_path}' is missing.")
-            return
         
-        for _, plugin_name, is_package in pkgutil.iter_modules([plugin_path]):
-            if is_package:
-                try:
-                    module = importlib.import_module(f'{plugin_directory}.{plugin_name}')
-                    self.register_plugin_commands(module, plugin_name)
-                except ImportError as err:
-                    logging.error(f"Failed to import plugin '{plugin_name}': {err}")
-                except Exception as err:
-                    logging.error(f"Error while loading plugin '{plugin_name}': {err}")
-
-    def register_plugin_commands(self, plugin_module, plugin_name):
-        '''Add commands from plugin modules.'''
-        for attribute_name in dir(plugin_module):
-            attribute = getattr(plugin_module, attribute_name)
-            if isinstance(attribute, type) and issubclass(attribute, Command) and attribute is not Command:
-                # Register commands, excluding MenuCommand unless from "menu" plugin
-                if plugin_name != "menu":
-                    self.command_handler.register_command(plugin_name, attribute())
-                    logging.info(f"Registered '{attribute_name}' from '{plugin_name}' plugin.")
+        # Discover all modules in the 'app.plugins' directory
+        for _, plugin_name, _ in pkgutil.iter_modules([plugin_path]):
+            try:
+                # Import the module dynamically
+                module = importlib.import_module(f'{plugin_directory}.{plugin_name}')
+                # Check if the module has a `register_commands` function
+                if hasattr(module, 'register_commands'):
+                    # Register commands via the module's function
+                    module.register_commands(self.command_handler)
+                    logging.info(f"Successfully loaded plugin: {plugin_name}")
                 else:
-                    # Specific registration for MenuCommand
-                    self.command_handler.register_command(plugin_name, MenuCommand(self.command_handler))
-                    logging.info(f"MenuCommand registered from '{plugin_name}' plugin.")
+                    logging.warning(f"Plugin '{plugin_name}' does not have a 'register_commands' function.")
+            except ImportError as err:
+                logging.error(f"Failed to import plugin '{plugin_name}': {err}")
 
     def start(self):
         '''Initialize and run the application.'''

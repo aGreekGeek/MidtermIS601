@@ -1,4 +1,4 @@
-import sys
+from app.commands import Command, CommandHandler  # Import CommandHandler
 from app.commands import Command
 
 class MenuCommand(Command):
@@ -26,4 +26,8 @@ class MenuCommand(Command):
         '''
         print("Available Commands:")
         for command_name in self.command_handler.commands:
-            print("\t-", command_name)
+            print(f"\t- {command_name}")
+
+def register_commands(handler: CommandHandler):
+    '''Registers the MenuCommand with the command handler.'''
+    handler.register_command('menu', MenuCommand(handler))
