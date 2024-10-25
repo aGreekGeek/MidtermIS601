@@ -35,7 +35,8 @@ def generate_test_data(num_records):
 
 def pytest_addoption(parser):
     '''Adds the --num_records option to specify how many test cases to generate, defaulting to 5.'''
-    parser.addoption("--num_records", action="store", default=5, type=int, help="Specify number of test records to generate.")
+    parser.addoption("--num_records", action="store", default=5, type=int, help=
+                     "Specify number of test records to generate.")
 
 def pytest_generate_tests(metafunc):
     '''Dynamically generates test data if certain fixtures are required by the test.'''
