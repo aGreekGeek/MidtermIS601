@@ -11,7 +11,7 @@ class Command(ABC):
 class CommandHandler:
     _instance = None
 
-    # Singleton Method for single instances
+    # Singleton Method for single instance
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super(CommandHandler, cls).__new__(cls)
