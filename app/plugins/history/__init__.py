@@ -4,20 +4,22 @@ from app.commands import CommandHandler
 from app.plugins.add import AddCommand
 
 class HistoryMenuCommand(Command):
-    '''Handles history-related submenu options in the REPL.'''
+    '''Displays submenu for calculation history export options'''
 
     def execute(self):
         '''
-        Displays a submenu for managing calculation history.
+        Displays a submenu for managing calculation history operations.
         '''
         while True:
             print("\nHistory Menu:")
             print("1. View History")
             print("2. Clear History")
             print("3. Delete a Record")
-            print("4. Back to Main Menu")
-            
-            choice = input("Select an option (1-4): ").strip()
+            print("4. Save History to CSV")
+            print("5. Load History from CSV")
+            print("6. Back to Main Menu")
+
+            choice = input("Select an option (1-6): ").strip()
             if choice == "1":
                 self.view_history()
             elif choice == "2":
@@ -25,6 +27,10 @@ class HistoryMenuCommand(Command):
             elif choice == "3":
                 self.delete_history_record()
             elif choice == "4":
+                self.save_history()
+            elif choice == "5":
+                self.load_history()
+            elif choice == "6":
                 print("Returning to the main menu.")
                 break
             else:
@@ -32,12 +38,8 @@ class HistoryMenuCommand(Command):
 
     def view_history(self):
         '''Displays the calculation history.'''
-        history_list = history.get_history()
-        if not history_list:
-            print("No history available.")
-        else:
-            for i, calc in enumerate(history_list, 1):
-                print(f"{i}. {calc}")
+        print("Calculation History:")
+        print(history.get_history())
 
     def clear_history(self):
         '''Clears the entire calculation history.'''
@@ -46,19 +48,23 @@ class HistoryMenuCommand(Command):
 
     def delete_history_record(self):
         '''Prompts the user to specify a record number to delete.'''
-        record_num = input("Enter the record number to delete: ")
         try:
-            index = int(record_num) - 1
-            history_list = history.get_history()
-            if index < 0 or index >= len(history_list):
-                print("Invalid record number.")
-            else:
-                del history_list[index]
-                print("Record deleted.")
+            record_num = int(input("Enter the record number to delete: "))
+            history.delete_record(record_num)
+            print("Record deleted.")
         except ValueError:
             print("Please enter a valid number.")
 
+    def save_history(self):
+        '''Prompts for a filename and saves the history.'''
+        filename = input("Enter the filename to save the history (default: calculation_history.csv): ") or "calculation_history.csv"
+        history.save_history(filename)
+
+    def load_history(self):
+        '''Prompts for a filename and loads the history.'''
+        filename = input("Enter the filename to load the history from (default: calculation_history.csv): ") or "calculation_history.csv"
+        history.load_history(filename)
 
 def register_commands(handler: CommandHandler):
-    '''Registers AddCommand with the command handler.'''
+    '''Registers ExportHistoryMenuCommand with the command handler.'''
     handler.register_command('history', HistoryMenuCommand())
