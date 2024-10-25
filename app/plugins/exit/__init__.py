@@ -20,5 +20,5 @@ class ExitCommand(Command):
 
 
 def register_commands(handler: CommandHandler):
-    '''Registers AddCommand with the command handler.'''
+    '''Registers ExitCommand with the command handler.'''
     handler.register_command('exit', ExitCommand())

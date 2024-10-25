@@ -26,5 +26,5 @@ class DivideCommand(Command):
 
 
 def register_commands(handler: CommandHandler):
-    '''Registers AddCommand with the command handler.'''
-    handler.register_command('subtract', DivideCommand())
+    '''Registers DivideCommand with the command handler.'''
+    handler.register_command('divide', DivideCommand())
