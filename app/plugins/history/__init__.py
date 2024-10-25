@@ -1,10 +1,8 @@
-from app.commands import Command
+from app.commands import Command, CommandHandler
 from app.calculator.calc_history import CalculationHistory as history
-from app.commands import CommandHandler
-from app.plugins.add import AddCommand
 
 class HistoryMenuCommand(Command):
-    '''Displays submenu for calculation history export options'''
+    '''Command class to handle the history submenu.'''
 
     def execute(self):
         '''
@@ -17,9 +15,11 @@ class HistoryMenuCommand(Command):
             print("3. Delete a Record")
             print("4. Save History to CSV")
             print("5. Load History from CSV")
-            print("6. Back to Main Menu")
-
-            choice = input("Select an option (1-6): ").strip()
+            print("6. Sort History")
+            print("7. Filter History")
+            print("8. Back to Main Menu")
+            
+            choice = input("Select an option (1-8): ").strip()
             if choice == "1":
                 self.view_history()
             elif choice == "2":
@@ -31,6 +31,10 @@ class HistoryMenuCommand(Command):
             elif choice == "5":
                 self.load_history()
             elif choice == "6":
+                self.sort_history()
+            elif choice == "7":
+                self.filter_history()
+            elif choice == "8":
                 print("Returning to the main menu.")
                 break
             else:
@@ -65,6 +69,22 @@ class HistoryMenuCommand(Command):
         filename = input("Enter the filename to load the history from (default: calculation_history.csv): ") or "calculation_history.csv"
         history.load_history(filename)
 
+    def sort_history(self):
+        '''Prompts the user to specify a column and sort order.'''
+        column = input("Enter the column to sort by (Operand1, Operand2, Operation, Result): ").strip()
+        order = input("Sort in ascending order? (yes/no): ").strip().lower()
+        ascending = order == "yes"
+        sorted_history = history.sort_history(by=column, ascending=ascending)
+        print("Sorted Calculation History:")
+        print(sorted_history)
+
+    def filter_history(self):
+        '''Prompts the user to specify an operation to filter by.'''
+        operation = input("Enter the operation to filter by (addition, subtraction, multiplication, division): ").strip().lower()
+        filtered_history = history.filter_history(operation)
+        print(f"Filtered History (Operation: {operation}):")
+        print(filtered_history)
+
 def register_commands(handler: CommandHandler):
-    '''Registers ExportHistoryMenuCommand with the command handler.'''
+    '''Registers HistoryMenuCommand with the command handler.'''
     handler.register_command('history', HistoryMenuCommand())

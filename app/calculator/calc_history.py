@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import List
+from typing import List, Union
 from app.calculator.calculation import Calculation
 
 class CalculationHistory:
@@ -17,7 +17,6 @@ class CalculationHistory:
             "Result": calculation.compute()
         }
         cls.history = pd.concat([cls.history, pd.DataFrame([data])], ignore_index=True)
-        logging.info(f"Added calculation: {calculation}")
 
     @classmethod
     def get_history(cls) -> pd.DataFrame:
@@ -28,7 +27,6 @@ class CalculationHistory:
     def clear_history(cls):
         '''Clears the complete history of calculations.'''
         cls.history = pd.DataFrame(columns=["Operand1", "Operand2", "Operation", "Result"])
-        logging.info("Cleared calculation history.")
 
     @classmethod
     def delete_record(cls, index: int):
@@ -42,7 +40,6 @@ class CalculationHistory:
     def save_history(cls, filename: str = "calculation_history.csv"):
         '''Saves the history DataFrame to a CSV file.'''
         cls.history.to_csv(filename, index=False)
-        logging.info("History saved to {filename}.")
         print(f"History saved to {filename}.")
 
     @classmethod
@@ -53,3 +50,16 @@ class CalculationHistory:
             print(f"History loaded from {filename}.")
         except FileNotFoundError:
             print(f"No file named {filename} found.")
+
+    @classmethod
+    def sort_history(cls, by: str = "Operation", ascending: bool = True) -> pd.DataFrame:
+        '''Sorts the history DataFrame by a specific column.'''
+        if by in cls.history.columns:
+            return cls.history.sort_values(by=by, ascending=ascending).reset_index(drop=True)
+        print(f"Invalid column name '{by}' for sorting.")
+        return cls.history
+
+    @classmethod
+    def filter_history(cls, operation: str) -> pd.DataFrame:
+        '''Filters the history DataFrame to show only rows matching a specific operation.'''
+        return cls.history[cls.history["Operation"] == operation].reset_index(drop=True)
