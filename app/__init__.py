@@ -49,34 +49,26 @@ class App:
         return self.settings.get(env_var, default_value)
 
     def load_plugins(self):
-        '''
-        Dynamically load all plugins from the app.plugins directory.
-        '''
         plugin_directory = 'app.plugins'
         plugin_path = plugin_directory.replace('.', '/')
-        
-        # Ensure plugin directory exists
+
         if not os.path.isdir(plugin_path):
             logging.warning(f"Plugin directory '{plugin_path}' is missing.")
             return
-        
-        # Discover all modules in the 'app.plugins' directory
+
         found_plugins = False
         for _, plugin_name, _ in pkgutil.iter_modules([plugin_path]):
             found_plugins = True
             try:
-                # Import the module dynamically
                 module = importlib.import_module(f'{plugin_directory}.{plugin_name}')
-                # Check if the module has a `register_commands` function
                 if hasattr(module, 'register_commands'):
-                    # Register commands via the module's function
                     module.register_commands(self.command_handler)
                     logging.info(f"Successfully loaded plugin: {plugin_name}")
                 else:
                     logging.warning(f"Plugin '{plugin_name}' does not have a 'register_commands' function.")
             except ImportError as err:
                 logging.error(f"Failed to import plugin '{plugin_name}': {err}")
-        
+
         if not found_plugins:
             logging.warning("No plugins found in the plugins directory.")
 

@@ -21,5 +21,7 @@ class CommandHandler:
         '''Executs the command under the name'''
         try:
             self.commands[command_name].execute()
+            logging.info(f"Executed command: {command_name}")
         except KeyError:
+            logging.error(f"No such command: {command_name}")
             print(f"No such command: {command_name}")
