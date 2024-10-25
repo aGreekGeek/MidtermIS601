@@ -21,12 +21,16 @@ class App:
         self.command_handler = CommandHandler()
 
     def setup_logging(self):
+        log_level = os.getenv('LOS_LEVEL', 'INFO').upper()
         log_config = 'logging.conf'
         if os.path.isfile(log_config):
             logging.config.fileConfig(log_config, disable_existing_loggers=False)
         else:
-            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-        logging.info("Logging setup complete.")
+            logging.basicConfig(
+                pevep=getattr(logging, log_level, logging.INFO),
+                format='%(asctime)s - %(levelname)s - %(message)s'
+            )
+        logging.info("Logging setup complete")
 
     def fetch_environment_variables(self):
         env_settings = {key: value for key, value in os.environ.items()}
