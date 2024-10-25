@@ -104,17 +104,16 @@ For logging my .env is configured with the following line of code:
 export LOG_LEVEL=DEBUG
 export LOG_FILE=logs/debug.log
 
-    - Explanation:  Environment variables allow dynamic configuration of log levels, log files, and other settings, enabling flexible application behavior in different environments.
+Explanation:  Environment variables allow dynamic configuration of log levels, log files, and other settings, enabling flexible application behavior in different environments.
 
-    - Usage
-        - LOG_LEVEL: Controls the verbosity of logging (DEBUG, INFO, WARNING, ERROR).
+Usage: LOG_LEVEL: Controls the verbosity of logging (DEBUG, INFO, WARNING, ERROR).
 
 ### Logging Practices
 
-    - Explanation: The application uses a comprehensive logging system to record operations, errors, and other important events.
-    - Dynamic Configuration:  Log levels and destinations are controlled via environment variables.
-    - Pandas are utilized to handle and manage calculation history effectively to provides capabilities for loading, saving, sorting, and filtering history records, making data operations straightforward and efficient.
-    - Menu options exist to export calculation history to CSV files under history.
+- Explanation: The application uses a comprehensive logging system to record operations, errors, and other important events.
+- Dynamic Configuration:  Log levels and destinations are controlled via environment variables.
+- Pandas are utilized to handle and manage calculation history effectively to provides capabilities for loading, saving, sorting, and filtering history records, making data operations straightforward and efficient.
+- Menu options exist to export calculation history to CSV files under history.
 
 ### Error Handling
 
