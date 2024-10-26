@@ -18,7 +18,7 @@ class HistoryMenuCommand(Command):
             print("6. Sort History")
             print("7. Filter History")
             print("8. Back to Main Menu")
-            
+
             choice = input("Select an option (1-8): ").strip()
             if choice == "1":
                 self.view_history()
