@@ -68,6 +68,7 @@ Watch the Video Demo (below) for a walkthrough of key features.
     The HistoryFacade class has methods like add_to_history, save_history, and load_history, which internally call methods from CalculationHistory. This way, other parts of the application don’t need to know how CalculationHistory works internally.
 
     - Code Exxample:
+[History Facade]d(https://github.com/aGreekGeek/MidtermIS601/blob/033fa0f805d72c26deb4ee72f9af2e9539cec560/app/facades/history_facade.py#L1C1-L22C50)
 
 2. Command Pattern
     - Purpose
@@ -77,6 +78,7 @@ Watch the Video Demo (below) for a walkthrough of key features.
     Each command class (e.g., AddCommand) implements an execute method. The CommandHandler registers these commands and can dynamically execute them based on user input.
 
     - Code Example
+[Command Pattern](https://github.com/aGreekGeek/MidtermIS601/blob/bb88638919e2efd4cbbe85b3450e7093e748f190/app/commands/__init__.py#L11-L38)
 
 3. Singleton Pattern
     - Purpose
@@ -86,7 +88,7 @@ Watch the Video Demo (below) for a walkthrough of key features.
     The CommandHandler is a Singleton, ensuring that only one instance is created and used throughout the application. This prevents issues with inconsistent command registration.
 
     - Code Example
-
+[Singleton Pattern](https://github.com/aGreekGeek/MidtermIS601/blob/bb88638919e2efd4cbbe85b3450e7093e748f190/app/commands/__init__.py#L11-L23)
 
 4. Strategy Pattern
     - Purpose
@@ -96,6 +98,7 @@ Watch the Video Demo (below) for a walkthrough of key features.
     Each arithmetic operation (addition, subtraction, etc.) is encapsulated in its own strategy class. The Calculator or Operations class can use these strategies interchangeably, which makes it easy to add or modify operations without altering existing code.
 
     - Code Example
+[Strategy Pattern](https://github.com/aGreekGeek/MidtermIS601/blob/bb88638919e2efd4cbbe85b3450e7093e748f190/app/stategies.py#L5-L15)
 
 ### Environmental Variables
 (.env included in .gitignore per professor instruction)
