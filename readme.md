@@ -68,7 +68,7 @@ Watch the Video Demo (below) for a walkthrough of key features.
     The HistoryFacade class has methods like add_to_history, save_history, and load_history, which internally call methods from CalculationHistory. This way, other parts of the application don’t need to know how CalculationHistory works internally.
 
     - Code Exxample:
-[History Facade]d(https://github.com/aGreekGeek/MidtermIS601/blob/033fa0f805d72c26deb4ee72f9af2e9539cec560/app/facades/history_facade.py#L1C1-L22C50)
+[History Facade](https://github.com/aGreekGeek/MidtermIS601/blob/033fa0f805d72c26deb4ee72f9af2e9539cec560/app/facades/history_facade.py#L1C1-L22C50)
 
 2. Command Pattern
     - Purpose
