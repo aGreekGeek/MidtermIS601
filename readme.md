@@ -56,7 +56,7 @@ The Advanced Python Calculator is a command-line-based application designed to s
 
 3. Video Demonstration:
 
-Watch the Video Demo (below) for a walkthrough of key features.
+Watch the [Video Demo](https://drive.google.com/file/d/1FQyeQLykgb9oB7xZ23g2vpMO7T82Q0wj/view?usp=sharing) for a walkthrough of key features.
 
 ### Design Patterns
 
@@ -135,3 +135,4 @@ Usage: LOG_LEVEL: Controls the verbosity of logging (DEBUG, INFO, WARNING, ERROR
 3. GitHub Actions are set up to run tests and code checks automatically on every push and pull request to my github repository, maintaining consistent code quality
 
 ### Video
+[Video Submission](https://drive.google.com/file/d/1FQyeQLykgb9oB7xZ23g2vpMO7T82Q0wj/view?usp=sharing)
